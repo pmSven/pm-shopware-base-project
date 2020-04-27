@@ -1,0 +1,61 @@
+version: '3.2'
+
+networks:
+  backend:
+    external:
+      name: shopware_backend
+
+services:
+  web:
+    image: pmphillip/pm-shopware-php-nginx:php-7.2
+    container_name: "src_web_${PROJECT_NAME}"
+    ports:
+      - "80:80"
+    volumes:
+      - ./public:/var/www/html:delegated
+      - ./php.ini:/etc/php/7.2/fpm/php.ini
+      - ./nginx:/etc/nginx
+    extra_hosts:
+      "dihk.local": "127.0.0.1"
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE_LOCAL}
+      - MYSQL_USER=${MYSQL_USER_LOCAL}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD_LOCAL}
+      - MYSQL_HOST=mysql
+    networks:
+      - backend
+
+  mysql:
+    image: mysql:5.7.20
+    container_name: "src_mysql_${PROJECT_NAME}"
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./db:/var/lib/mysql
+      - ./my.cnf:/etc/mysql/my.cnf
+    environment:
+      - MYSQL_ROOT_PASSWORD=v399efJP
+      - MYSQL_DATABASE=${MYSQL_DATABASE_LOCAL}
+      - MYSQL_USER=${MYSQL_USER_LOCAL}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD_LOCAL}
+    networks:
+      - backend
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: "src_phpmyadmin_${PROJECT_NAME}"
+    environment:
+      PMA_HOSTS: mysql
+      PMA_USER: root
+      PMA_PASSWORD: v399efJP
+      TZ: "Europe/Berlin"
+    expose:
+      - 80
+    ports:
+      - "8083:80"
+    networks:
+      - backend
+
+volumes:
+  esdata711:
+    driver: local
