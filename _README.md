@@ -61,7 +61,9 @@ Please let us use the same code style configuration.
 
 You can easily import the symfony config by [pulling the settings](https://www.jetbrains.com/help/phpstorm/sharing-your-ide-settings.html#settings-repository) from the provided [repo](https://github.com/pmSven/phpstorm_settings).
 
-### Recommend Plugins for PHP-Storm
+Please use type declaration and enforce the type checks using `declare(strict_types=1);`. In addition take the warnings of phpstorm seriously once you installed the following plugins:
+
+### Mandatory Plugins for PHP-Storm
 
 1. [PHP Annotations](https://plugins.jetbrains.com/plugin/7320-php-annotations)
 2. [Php Inspections (EA Extended)](https://plugins.jetbrains.com/plugin/7622-php-inspections-ea-extended-)
