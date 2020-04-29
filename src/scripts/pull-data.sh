@@ -92,10 +92,7 @@ download_db_dump(){
 
     echo "remove old rewrite rules"
     echo "DELETE FROM s_core_rewrite_urls;" >> ${DUMP_NAME}
-
-    echo "setting correct theme"
-    echo "Update s_core_shops set template_id=( SELECT id FROM s_core_templates where name=\"${DEST_THEME_NAME}\");" >> ${DUMP_NAME}
-
+    
     echo "SET FOREIGN_KEY_CHECKS = 1;" >> ${DUMP_NAME}
 }
 
