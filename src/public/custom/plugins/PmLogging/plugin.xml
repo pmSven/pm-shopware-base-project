@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugin xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../../engine/Shopware/Components/Plugin/schema/plugin.xsd">
+    <label lang="de">PM Logging Plugin</label>
+    <label>PM Logging Plugin</label>
+
+    <version>1.0.0</version>
+
+    <copyright>(c) by PM Agentur Software + Consulting GmbH</copyright>
+    <license>proprietary</license>
+    <link>https://pmagentur.com/</link>
+    <author>PM Agentur Software + Consulting GmbH</author>
+
+    <compatibility minVersion="5.5.10"/>
+    <requiredPlugins>
+        <requiredPlugin pluginName="PmAbstract"/>
+    </requiredPlugins>
+
+    <changelog version="1.0.0">
+        <changes lang="de">Erste Veröffentlichung</changes>
+        <changes>Initial Release</changes>
+    </changelog>
+</plugin>

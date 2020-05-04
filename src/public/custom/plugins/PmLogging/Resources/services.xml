@@ -1,0 +1,50 @@
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="pm.logging.logging_service_class">PmLogging\Components\Logging\LoggingService</parameter>
+        <parameter key="pm.logging.logging_type_class">PmLogging\Models\Logging\Helper\DoctrineLoggingTypeRegistration</parameter>
+        <parameter key="pm.logging.logging_entity_class">PmLogging\Models\Logging\Helper\DoctrineLoggingEntityRegistration</parameter>
+        <parameter key="pm.logging.logging_event_class">PmLogging\Models\Logging\Helper\DoctrineLoggingEventRegistration</parameter>
+        <parameter key="pm.logging.backend_subscriber_class">PmLogging\Subscriber\Backend</parameter>
+    </parameters>
+
+    <services>
+        <!-- Abstracts -->
+        <service id="pm.logging.logging_service_abstract" abstract="true">
+        </service>
+        <service id="pm.logging.logging_type_abstract" abstract="true">
+        </service>
+        <service id="pm.logging.logging_entity_abstract" abstract="true">
+        </service>
+        <service id="pm.logging.logging_event_abstract" abstract="true">
+        </service>
+        <service id="pm.logging.backend_subscriber_abstract" abstract="true">
+            <argument type="service" id="template"/>
+        </service>
+
+        <!-- Decorators -->
+
+        <!-- Services -->
+        <service id="pm.logging.logging_service" class="%pm.logging.logging_service_class%" parent="pm.logging.logging_service_abstract">
+            <argument type="service" id="models"/>
+        </service>
+        <service id="pm.logging.logging_type" class="%pm.logging.logging_type_class%" parent="pm.logging.logging_type_abstract">
+            <tag name="pm.is_doctrine_enum"/>
+        </service>
+        <service id="pm.logging.logging_entity" class="%pm.logging.logging_entity_class%" parent="pm.logging.logging_entity_abstract">
+            <tag name="pm.is_doctrine_enum"/>
+        </service>
+        <service id="pm.logging.logging_event" class="%pm.logging.logging_event_class%" parent="pm.logging.logging_event_abstract">
+            <tag name="pm.is_doctrine_enum"/>
+        </service>
+
+        <!-- Commands -->
+
+        <!-- Subscribers -->
+        <service id="pm.logging.backend_subscriber" class="%pm.logging.backend_subscriber_class%" parent="pm.logging.backend_subscriber_abstract">
+            <tag name="shopware.event_subscriber" />
+        </service>
+    </services>
+</container>

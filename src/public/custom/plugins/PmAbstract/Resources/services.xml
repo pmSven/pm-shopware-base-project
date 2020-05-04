@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<container xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns="http://symfony.com/schema/dic/services"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="pm.abstract.test_command_class">PmAbstract\Commands\PmAbstractTest</parameter>
+    </parameters>
+
+    <services>
+        <!-- Abstracts -->
+        <service id="pm.abstract.test_command_abstract" abstract="true">
+        </service>
+
+        <!-- Decorators -->
+        <service id="pm_model_factory" decorates="model_factory" class="PmAbstract\Components\DependencyInjection\Bridge\PmModels">
+            <argument type="service" id="pm_model_factory.inner"/>
+            <argument type="tagged" tag="pm.is_doctrine_enum"/>
+        </service>
+
+        <!-- Services -->
+
+        <!-- Commands -->
+        <service id="pm.abstract.test_command" class="%pm.abstract.test_command_class%" parent="pm.abstract.test_command_abstract">
+            <tag name="console.command"/>
+        </service>
+
+        <!-- Subscribers -->
+    </services>
+</container>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/shopware/5.2/engine/Shopware/Components/Plugin/schema/menu.xsd">
+    <entries>
+        <entry isRootMenu="true">
+            <name>PM</name>
+            <label lang="en">PM</label>
+            <label lang="de">PM</label>
+            <class>sprite-information-button</class>
+            <children>
+                <entry>
+                    <name>PmLogging</name>
+                    <label lang="en">Logging</label>
+                    <label lang="de">Logging</label>
+                    <controller>PmLogging</controller>
+                    <action>index</action>
+                    <class>sprite-view-as</class>
+                </entry>
+            </children>
+        </entry>
+    </entries>
+</menu>

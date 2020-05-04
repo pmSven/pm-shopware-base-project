@@ -121,8 +121,10 @@ import_db_dump(){
     ${DEST_PHP_COMMAND} bin/console sw:theme:cache:generate
     ${DEST_PHP_COMMAND} bin/console sw:generate:attributes
     ${DEST_PHP_COMMAND} bin/console sw:customer:stream:index:populate
-    ${DEST_PHP_COMMAND} bin/console sw:rebuild:seo:index
     ${DEST_PHP_COMMAND} bin/console sw:refresh:search:index
+
+    echo "The following command might throw a warning when the shop is empty"
+    ${DEST_PHP_COMMAND} bin/console sw:rebuild:seo:index
 
     ${DEST_PHP_COMMAND} bin/console sw:admin:create --email=admin@admin.com --username=admin --name=admin --password=demo -n
 }

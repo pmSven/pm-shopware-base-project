@@ -825,7 +825,7 @@ abstract class Zend_Db_Table_Abstract
             $metadata = $this->_db->describeTable($this->_name, $this->_schema);
             // If $this has a metadata cache, then cache the metadata
             if (null !== $this->_metadataCache && !$this->_metadataCache->save($metadata, $cacheId)) {
-                trigger_error('Failed saving metadata to metadataCache', E_USER_NOTICE);
+                //trigger_error('Failed saving metadata to metadataCache', E_USER_NOTICE);
             }
         }
 
