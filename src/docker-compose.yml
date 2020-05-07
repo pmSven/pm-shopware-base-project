@@ -17,8 +17,8 @@ services:
       - 80
     ports:
       - "80:80"
-#    volumes:
-#      - ./public:/var/www/html:delegated
+    volumes:
+      - ./public:/var/www/html:delegated             # Remove or comment for mutagen
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE_LOCAL}
       MYSQL_USER: ${MYSQL_USER_LOCAL}
