@@ -46,7 +46,7 @@ abstract class AbstractEnumBackendController extends Shopware_Controllers_Backen
     }
 
     /**
-     * This should return an string array if all the allowed values.
+     * This should return an string array of all the allowed values.
      *
      * @return string[]
      */
