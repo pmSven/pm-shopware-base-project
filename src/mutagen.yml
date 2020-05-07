@@ -1,0 +1,25 @@
+beforeCreate:
+  - docker-compose up -d
+
+afterTerminate:
+  - docker-compose down
+
+sync:
+  defaults:
+    flushOnCreate: true
+    mode: "two-way-resolved"
+    permissions:
+      defaultFileMode: 644
+      defaultDirectoryMode: 755
+    ignore:
+      vcs: true
+      paths:
+        - ".docker"
+        - ".github"
+
+  example-shop:
+    alpha: "docker://www-data@example-shop/var/www/html"
+    beta: "./public"
+    ignore:
+      paths:
+        - "/media"

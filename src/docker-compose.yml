@@ -1,38 +1,43 @@
-version: '3.2'
+version: '3.7'
 
 networks:
   backend:
-    external:
-      name: shopware_backend
+#    external:
+#      name: global-backend
+
+volumes:
+  db:
 
 services:
   web:
     image: pmphillip/pm-shopware-php-nginx:php-7.2
-    container_name: "src_web_${PROJECT_NAME}"
+    container_name: "${PROJECT_NAME}-shop"
+    hostname: "${PROJECT_NAME}"
+    expose:
+      - 80
     ports:
       - "80:80"
-    volumes:
-      - ./public:/var/www/html:delegated
-      - ./php.ini:/etc/php/7.2/fpm/php.ini
-      - ./nginx:/etc/nginx
-    extra_hosts:
-      "dihk.local": "127.0.0.1"
+#    volumes:
+#      - ./public:/var/www/html:delegated
     environment:
-      - MYSQL_DATABASE=${MYSQL_DATABASE_LOCAL}
-      - MYSQL_USER=${MYSQL_USER_LOCAL}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD_LOCAL}
-      - MYSQL_HOST=mysql
+      MYSQL_DATABASE: ${MYSQL_DATABASE_LOCAL}
+      MYSQL_USER: ${MYSQL_USER_LOCAL}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD_LOCAL}
+      MYSQL_HOST: mysql
+      ES_HOST: ${ES_HOST}
+      SHOPWARE_ENV: ${SHOPWARE_ENV}
+      VIRTUAL_HOST: ${SHOP_URL_LOCAL}
     networks:
       - backend
 
   mysql:
     image: mysql:5.7.20
-    container_name: "src_mysql_${PROJECT_NAME}"
-    ports:
-      - "3306:3306"
+    container_name: "${PROJECT_NAME}-mysql"
+    expose:
+      - 3306
     volumes:
-      - ./db:/var/lib/mysql
-      - ./my.cnf:/etc/mysql/my.cnf
+      - db:/var/lib/mysql
+      - ./configs/my.cnf:/etc/mysql/my.cnf
     environment:
       - MYSQL_ROOT_PASSWORD=v399efJP
       - MYSQL_DATABASE=${MYSQL_DATABASE_LOCAL}
@@ -43,19 +48,16 @@ services:
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    container_name: "src_phpmyadmin_${PROJECT_NAME}"
+    container_name: "${PROJECT_NAME}-phpmyadmin"
     environment:
       PMA_HOSTS: mysql
       PMA_USER: root
       PMA_PASSWORD: v399efJP
       TZ: "Europe/Berlin"
+      VIRTUAL_HOST: phpmyadmin.${SHOP_URL_LOCAL}
     expose:
       - 80
     ports:
       - "8083:80"
     networks:
       - backend
-
-volumes:
-  esdata711:
-    driver: local

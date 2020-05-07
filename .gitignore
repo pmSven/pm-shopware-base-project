@@ -69,3 +69,7 @@ src/public/.idea
 /src/data
 /src/public/files/plugins
 /src/db
+
+index.nginx-debian.html
+
+mutagen.yml.lock
