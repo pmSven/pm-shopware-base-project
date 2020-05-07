@@ -51,6 +51,10 @@ abstract class PmAbstractPlugin extends Plugin implements PmAbstractPluginInterf
      */
     public function uninstall(UninstallContext $uninstallContext)
     {
+        if ($uninstallContext->keepUserData()) {
+            return;
+        }
+
         foreach ($this->getDatabaseChanges() as $databaseChange) {
             $databaseChange->remove($this->container);
         }
